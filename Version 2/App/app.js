@@ -4,6 +4,12 @@ var express = require('express')
   , MongoClient = require('mongodb').MongoClient // Driver for connecting to MongoDB
   , routes = require('./routes'); // Routes for our application
 
+  //CSS & jQuery path setup
+  var path = require('path');
+  
+  //Favicon
+  //var favicon = require('serve-favicon');
+  
 MongoClient.connect('mongodb://localhost:27017/blog', function(err, db) {
     "use strict";
     if(err) throw err;
@@ -12,13 +18,21 @@ MongoClient.connect('mongodb://localhost:27017/blog', function(err, db) {
     app.engine('html', cons.swig);
     app.set('view engine', 'html');
     app.set('views', __dirname + '/views');
+	
+	//Favicon
+	//app.use(favicon(__dirname + '/views/img/favicon.ico'));
+	
 
     // Express middleware to populate 'req.cookies' so we can access cookies
     app.use(express.cookieParser());
 
     // Express middleware to populate 'req.body' so we can access POST variables
     app.use(express.bodyParser());
-
+	
+	//CSS & jQuery path setup
+	app.use(express.static(path.join(__dirname, 'views')));
+	
+	
     // Application routes
     routes(app, db);
 

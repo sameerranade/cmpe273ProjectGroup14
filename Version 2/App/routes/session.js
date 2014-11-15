@@ -80,7 +80,7 @@ function SessionHandler (db) {
                     // this was a duplicate
                     if (err.code == '11000') {
                         errors['email_error'] = "This Email Address is already Signed Up!!";
-                        return res.render("blog_template", errors);
+                        return res.render("truckstop", errors);
                     }
                     // this was a different error
                     else {
@@ -100,7 +100,7 @@ function SessionHandler (db) {
         }
         else {
             console.log("user did not validate");
-            return res.render("blog_template", errors);
+            return res.render("truckstop", errors);
         }
 	}
 	}
@@ -164,7 +164,7 @@ function SessionHandler (db) {
 
         if (!req.username) {
             console.log("welcome: can't identify user...redirecting to signup");
-            return res.redirect("/blog_template");
+            return res.redirect("/truckstop");
         }
 
         return res.render("welcome", {'username':req.username})
